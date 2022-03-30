@@ -18,13 +18,13 @@ namespace HashTable
         }
         protected int GetBucketPosition(K key)
         {
-            int position = key.GetHashCode() % _size;
-            return Math.Abs(position);
+            int index = key.GetHashCode() % _size;
+            return Math.Abs(index);
         }
         public V Get(K key)
         {
-            int position = GetBucketPosition(key);
-            LinkedList<K, V> linkedList = bucketList[position];
+            int index = GetBucketPosition(key);
+            LinkedList<K, V> linkedList = bucketList[index];
             if (linkedList == null)
             {
                 return default;
@@ -35,12 +35,12 @@ namespace HashTable
 
         public void Add(K key, V value)
         {
-            int position = GetBucketPosition(key);
-            LinkedList<K, V> linkedList = bucketList[position];
+            int index = GetBucketPosition(key);
+            LinkedList<K, V> linkedList = bucketList[index];
             if (linkedList == null)
             {
                 linkedList = new LinkedList<K, V>();
-                bucketList[position] = linkedList;
+                bucketList[index] = linkedList;
             }
             MyMapNode<K, V> myMapNode = linkedList.Search(key);
             if (myMapNode == null)
